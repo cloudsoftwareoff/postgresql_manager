@@ -1,23 +1,43 @@
 {
-  "name": "pg_manager",
-  "version": "1.0.0",
-  "description": "",
+  "name": "postgresql-web-manager",
+  "version": "1.0.1",
+  "description": "A modern web-based PostgreSQL database management tool",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "dotenv": "^17.2.1",
-    "ejs": "^3.1.10",
-    "express": "^5.1.0",
-    "pg": "^8.16.3",
-    "sequelize": "^6.37.7"
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.0",
+    "pg": "^8.8.0",
+    "sequelize": "^6.25.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^2.0.20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cloudsoftwareoff/postgresql_manager.git"
+  },
+  "keywords": [
+    "postgresql",
+    "database",
+    "management",
+    "web",
+    "admin",
+    "sql"
+  ],
+  "author": "chahid ahmadi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cloudsoftwareoff/postgresql_manager/issues"
+  },
+  "homepage": "https://github.com/cloudsoftwareoff/postgresql_manager#readme",
+  "engines": {
+    "node": ">=20.11.1"
   }
 }

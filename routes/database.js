@@ -4,35 +4,23 @@ const path = require('path');
 const fs = require('fs');
 const router = express.Router();
 
-const caCertPath = process.env.CA_CERT_PATH || path.join(__dirname, '../ca-certificate.pem');
+const caCertPath =  path.join(__dirname, process.env.CA_CERT_PATH);
 
 // Database Configuration
 let dbConfigFromEnv;
-if (process.env.DB_SSL_ENABLED === 'true') {
-    if (fs.existsSync(caCertPath)) {
-        console.log('🔒 Using provided CA certificate for SSL connection.');
-        dbConfigFromEnv = {
-            connectionString: process.env.DATABASE_URL,
-            ssl: {
-                ca: fs.readFileSync(caCertPath).toString(),
-                rejectUnauthorized: true
-            }
-        };
-    } else {
-        console.log('🔒 Using SSL without custom CA certificate.');
-        dbConfigFromEnv = {
-            connectionString: process.env.DATABASE_URL,
-            ssl: {
-                rejectUnauthorized: false
-            }
-        };
-    }
-} else {
-    console.log('📡 Using standard connection (no SSL).');
+if (fs.existsSync(caCertPath)) {
+    console.log('🔒 Using provided CA certificate for SSL connection.');
     dbConfigFromEnv = {
         connectionString: process.env.DATABASE_URL,
-        ssl: false
+        ssl: {
+            ca: fs.readFileSync(caCertPath).toString(),
+            rejectUnauthorized: true
+        }
     };
+} else {
+    console.error(`❌ CA certificate file (${caCertPath}) not found. Cannot establish secure connection.`);
+    console.error('   Please ensure the CA certificate is saved as aiven-ca.pem in this directory.');
+    process.exit(1);
 }
 
 // Helper Functions
